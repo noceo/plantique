@@ -17,6 +17,7 @@ export default function RecipesOTD() {
                 name: "Paul",
                 imgSrc: "https://placehold.co/400",
               }}
+              href="/recipes/creamy-cauliflower-curry"
             />
           </div>
         ))}

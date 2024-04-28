@@ -3,6 +3,7 @@ import Author from "@/shared/interfaces/author.interface";
 import AllergenInfo from "../AllergenInfo/AllergenInfo";
 import AuthorBadge from "../AuthorBadge/AuthorBadge";
 import CustomImage from "../CustomImage/CustomImage";
+import Link from "next/link";
 
 interface RecipeCardProps {
   title: string;
@@ -11,6 +12,7 @@ interface RecipeCardProps {
   isLiked: boolean;
   author: Author;
   imgSrc: string;
+  href: string;
 }
 
 export default function RecipeCard({
@@ -20,10 +22,11 @@ export default function RecipeCard({
   isLiked,
   author,
   imgSrc,
+  href,
 }: RecipeCardProps) {
   return (
     <div className="recipe-card">
-      <a href="/">
+      <Link href={href}>
         <div className="recipe-card__img">
           <CustomImage src={imgSrc} alt={title} />
         </div>
@@ -39,7 +42,7 @@ export default function RecipeCard({
             imgAlt={`Profile picture of ${author.name}`}
           />
         </div>
-      </a>
+      </Link>
     </div>
   );
 }
