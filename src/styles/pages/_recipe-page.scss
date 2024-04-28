@@ -1,5 +1,5 @@
 .recipe-page {
-  $content-padding: 50px;
+  $content-padding: 70px;
 
   display: flex;
 
@@ -26,6 +26,43 @@
   &__steps {
     background-color: #fcfcfc;
     padding: $content-padding;
+    padding-top: 0;
+  }
+
+  &__steps-header {
+    position: sticky;
+    top: 0;
+    padding: 40px 0 50px 0;
+    background-color: inherit;
+    z-index: 1;
+  }
+
+  &__steps-items {
+    p:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 20%;
+      height: 2px;
+      background-color: black;
+    }
+  }
+
+  &__steps-item {
+    position: relative;
+    padding: 40px 0;
+  }
+
+  &__greeting {
+    display: block;
+    text-align: center;
+    @include heading2;
+  }
+
+  &__author {
+    padding: $content-padding;
+    background-color: yellow;
   }
 
   &__title {
@@ -48,6 +85,7 @@
   }
 
   &__ingredient-list {
+    display: block;
     margin-bottom: 40px;
 
     thead {

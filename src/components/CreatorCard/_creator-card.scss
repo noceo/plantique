@@ -1,0 +1,39 @@
+.creator-card {
+  display: flex;
+
+  &__img {
+    display: block;
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+
+    img {
+      border-radius: 50%;
+    }
+  }
+
+  &__content {
+    flex: 1;
+
+    > * {
+      display: block;
+      margin-bottom: 10px;
+    }
+  }
+
+  &__name {
+    font-size: font-size(18px);
+    font-weight: 600;
+  }
+
+  &__slogan {
+    font-size: font-size(14px);
+    font-weight: 300;
+  }
+
+  &__member-since {
+    font-size: font-size(14px);
+    font-weight: 300;
+    font-style: italic;
+  }
+}

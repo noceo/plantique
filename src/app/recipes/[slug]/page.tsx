@@ -1,6 +1,8 @@
 import AllergenInfo from "@/components/AllergenInfo/AllergenInfo";
 import Button from "@/components/Button/Button";
+import CreatorCard from "@/components/CreatorCard/CreatorCard";
 import CustomImage from "@/components/CustomImage/CustomImage";
+import ProgressBar from "@/components/ProgressBar/ProgressBar";
 import { Allergen } from "@/shared/interfaces/allergen.interface";
 
 const recipes = [
@@ -123,6 +125,13 @@ const steps = [
   "Phasellus eget rutrum ex, sed consequat odio. Praesent condimentum dapibus mauris, ut congue diam viverra et. Ut lobortis nibh vel nisi pellentesque, id pretium tellus auctor. Cras metus ante, euismod et convallis et, bibendum id nisi. Sed quis tellus augue. Quisque ut ullamcorper enim. Vestibulum sit amet lorem ultrices, aliquet felis vestibulum, sodales sapien. Etiam quis odio a mi consectetur consequat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.",
 ];
 
+const author = {
+  name: "Paul",
+  slogan: "Love is my secret ingredient that puts a smile on everyone’s face.",
+  created_at: new Date(),
+  imgSrc: "https://placehold.co/400",
+};
+
 interface PageParams {
   slug: string;
 }
@@ -184,13 +193,36 @@ export default function Recipe({ params }: PageProps) {
           </div>
         </section>
         <section className="recipe-page__steps">
-          <h2>Steps</h2>
-          <div className="recipe-page__progress-bar">Progress Bar</div>
-          {steps.map((step, i) => (
-            <p key={"step" + i}>{step}</p>
-          ))}
+          <div className="recipe-page__steps-header">
+            <h2>Steps</h2>
+            <div className="recipe-page__progress-bar">
+              <ProgressBar progress={20} />
+            </div>
+          </div>
+          <div className="recipe-page__steps-items">
+            {steps.map((step, i) => (
+              <p
+                key={"step" + i}
+                className="recipe-page__steps-item"
+                data-step-id={i + 1}
+              >
+                {step}
+              </p>
+            ))}
+          </div>
+          <p className="recipe-page__greeting">Enjoy 🍽️</p>
         </section>
-        <section className="recipe-page__author"></section>
+        <section className="recipe-page__author">
+          <h2>Creator</h2>
+          <div className="recipe-page__author-info">
+            <CreatorCard
+              name={author.name}
+              slogan={author.slogan}
+              member_since={author.created_at}
+              imgSrc={author.imgSrc}
+            />
+          </div>
+        </section>
         <section className="recipe-page__suggestions"></section>
       </div>
     </div>

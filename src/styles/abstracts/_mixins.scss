@@ -77,15 +77,17 @@
 
 @mixin heading1 {
   @include font-serif;
-  font-size: font-size(40px);
+  font-size: font-size(32px);
+  line-height: font-size(36px);
   font-weight: 700;
 }
 
 @mixin heading2 {
   @include font-serif;
-  font-size: font-size(28px);
-  line-height: font-size(32px);
-  font-weight: 800;
+  font-size: font-size(24px);
+  line-height: font-size(28px);
+  font-weight: 700;
+  margin-bottom: 30px;
 }
 
 @mixin heading3 {
