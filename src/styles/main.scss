@@ -1,0 +1,25 @@
+@import "./reset";
+@import "./abstracts/mixins";
+@import "./abstracts/functions";
+@import "./abstracts/variables";
+@import "./grid";
+@import "./typography";
+@import "../components/RecipeCard/recipe-card";
+@import "../components/AllergenInfo/allergen-info";
+@import "../components/AuthorBadge/author-badge";
+@import "../components/RecipesOTD/recipes-otd";
+@import "../components/LabelToggle/label-toggle";
+@import "../components/ExploreView/explore-view";
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: var(--font-poppins);
+  font-weight: 400;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

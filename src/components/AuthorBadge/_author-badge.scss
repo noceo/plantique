@@ -1,0 +1,17 @@
+.author-badge {
+  display: flex;
+
+  &__img {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+
+    img {
+      border-radius: 50%;
+    }
+  }
+
+  &__name {
+    font-size: font-size(12px);
+  }
+}

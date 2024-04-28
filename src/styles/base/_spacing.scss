@@ -1,0 +1,19 @@
+h2 {
+  margin-bottom: font-size(20px);
+}
+
+h3 {
+  margin-bottom: font-size(20px);
+}
+
+p {
+  margin-bottom: 1.5rem;
+
+  @include media-breakpoint-up(md) {
+    margin-bottom: 3rem;
+  }
+}
+
+.quote-section {
+  margin-bottom: 80px;
+}

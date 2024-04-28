@@ -1,0 +1,157 @@
+body {
+  @include font-sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-style: normal;
+  hyphens: auto;
+}
+
+h1 {
+  @include heading1;
+}
+
+h2 {
+  @include heading2;
+}
+
+h3 {
+  @include heading3;
+}
+
+h4 {
+  @include heading4;
+}
+
+p {
+  @include paragraph;
+  hyphens: auto;
+}
+
+p,
+cite {
+  > a {
+    background: linear-gradient(
+        map-get($map: $colors, $key: orange),
+        map-get($map: $colors, $key: orange)
+      )
+      left bottom no-repeat;
+    background-size: 100% 2px;
+    transition: all 0.15s ease-out;
+    padding: 3px;
+
+    &:hover {
+      background-size: 100% 100%;
+      color: map-get($map: $colors, $key: white);
+    }
+  }
+}
+
+cite {
+  @include font-serif;
+  font-size: font-size(14px);
+  line-height: font-size(24px);
+  display: inline-block;
+  text-indent: -30px;
+  margin-left: 30px;
+  margin-bottom: 15px;
+  font-style: normal;
+  word-wrap: break-word;
+
+  @include media-breakpoint-up(md) {
+    font-size: font-size(15px);
+    line-height: font-size(24px);
+  }
+}
+
+em {
+  font-style: italic;
+}
+
+strong {
+  font-weight: 700;
+}
+
+a {
+  font-style: normal;
+  text-decoration: none;
+  color: inherit;
+  hyphens: auto;
+}
+
+span {
+  hyphens: auto;
+}
+
+small {
+  font-style: normal;
+  font-size: font-size(12px);
+  letter-spacing: 2pt;
+}
+
+address {
+  @include paragraph;
+  @include font-sans-serif;
+}
+
+.button {
+  @include font-sans-serif;
+  font-weight: 700;
+}
+
+.initial {
+  float: left;
+  @include font-sans-serif;
+  font-size: 90px;
+  font-weight: 800;
+  padding-top: 23px;
+  margin-left: -6px;
+  margin-bottom: 10px;
+  margin-right: 5px;
+}
+
+.label-small {
+  display: inline-block;
+  font-size: font-size(14px);
+  font-weight: 400;
+}
+
+.label-big {
+  display: inline-block;
+  @include font-sans-serif;
+  font-size: font-size(14px);
+  line-height: font-size(18px);
+  font-weight: 400;
+  margin-bottom: 5px;
+
+  @include media-breakpoint-up(md) {
+    font-size: font-size(16px);
+  }
+}
+
+.category-label {
+  font-weight: 600;
+  color: map-get($map: $colors, $key: orange);
+  text-transform: uppercase;
+}
+
+.edition-label {
+  font-weight: 600;
+}
+
+.author-label {
+  display: block;
+  @include font-sans-serif;
+  font-size: font-size(14px);
+  margin-top: 5px;
+}
+
+figcaption {
+  @include font-sans-serif;
+  font-size: font-size(14px);
+  line-height: font-size(22px);
+  color: map-get($map: $colors, $key: orange);
+}

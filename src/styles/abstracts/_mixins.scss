@@ -1,0 +1,184 @@
+@function breakpoint-next(
+  $name,
+  $breakpoints: $grid-breakpoints,
+  $breakpoint-names: map-keys($breakpoints)
+) {
+  $n: index($breakpoint-names, $name);
+  @if not $n {
+    @error "breakpoint `#{$name}` not found in `#{$breakpoints}`";
+  }
+  @return if(
+    $n < length($breakpoint-names),
+    nth($breakpoint-names, $n + 1),
+    null
+  );
+}
+
+@function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
+  $min: map-get($breakpoints, $name);
+  @return if($min !=0, $min, null);
+}
+
+@function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
+  $max: map-get($breakpoints, $name);
+  @return if($max and $max > 0, $max - 0.02, null);
+}
+
+@mixin media-breakpoint-only($name, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($name, $breakpoints);
+  $next: breakpoint-next($name, $breakpoints);
+  $max: breakpoint-max($next, $breakpoints);
+
+  @if $min != null and $max != null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if $max == null {
+    @include media-breakpoint-up($name, $breakpoints) {
+      @content;
+    }
+  } @else if $min == null {
+    @include media-breakpoint-down($next, $breakpoints) {
+      @content;
+    }
+  }
+}
+
+@mixin media-breakpoint-up($name, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($name, $breakpoints);
+
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin media-breakpoint-down($name, $breakpoints: $grid-breakpoints) {
+  $max: breakpoint-max($name, $breakpoints);
+  @if $max {
+    @media (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin font-sans-serif {
+  font-family: var(--font-poppins), sans-serif;
+}
+
+@mixin font-serif {
+  font-family: var(--font-playfair), serif;
+}
+
+@mixin heading1 {
+  @include font-serif;
+  font-size: font-size(40px);
+  font-weight: 700;
+}
+
+@mixin heading2 {
+  @include font-serif;
+  font-size: font-size(28px);
+  line-height: font-size(32px);
+  font-weight: 800;
+}
+
+@mixin heading3 {
+  @include font-serif;
+  font-size: font-size(24px);
+  line-height: font-size(32px);
+  font-weight: 700;
+}
+
+@mixin heading4 {
+  @include font-serif;
+  font-size: font-size(20px);
+  line-height: font-size(26px);
+  font-weight: 700;
+}
+
+@mixin page-heading {
+  @include heading3;
+  padding: 10px 0 20px 0;
+  border-top: 5px solid map-get($map: $colors, $key: black);
+}
+
+@mixin paragraph {
+  display: inline-block;
+  font-weight: 400;
+  font-style: normal;
+  font-size: font-size(16px);
+  line-height: font-size(24px);
+  hyphens: auto;
+
+  @include media-breakpoint-up(md) {
+    line-height: font-size(26px);
+  }
+}
+
+@mixin nav-link {
+  display: inline-flex;
+  align-items: center;
+  @include font-sans-serif;
+  font-size: font-size(16px);
+  font-weight: 700;
+  line-height: font-size(29px);
+  padding: 10px 15px;
+  color: inherit;
+  background-color: inherit;
+  border: none;
+
+  @include media-breakpoint-up(lg) {
+    font-size: font-size(20px);
+  }
+
+  &:hover {
+    &::after {
+      width: calc(100% - 24px);
+    }
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 5px;
+    left: 12px;
+    width: 0;
+    height: 5px;
+    background-color: map-get($map: $colors, $key: orange);
+    transition: width 0.3s ease-out;
+  }
+}
+
+@mixin sr-only {
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
+  -webkit-clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
+
+@mixin visible {
+  border: initial;
+  clip: initial;
+  clip-path: initial;
+  -webkit-clip-path: initial;
+  height: initial;
+  margin: initial;
+  overflow: initial;
+  padding: initial;
+  position: initial;
+  width: initial;
+  white-space: initial;
+}

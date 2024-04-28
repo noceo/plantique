@@ -1,0 +1,31 @@
+.recipe-card {
+  position: relative;
+
+  &__img {
+    aspect-ratio: 1;
+    margin-bottom: 30px;
+
+    img {
+      border-radius: 20%;
+    }
+  }
+
+  &__text-wrapper {
+    padding: 0 20px 20px;
+  }
+
+  &__title {
+    @include heading2;
+    margin-bottom: 10px;
+  }
+
+  &__description {
+    font-size: font-size(14);
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+
+  &__allergens {
+    margin-bottom: 20px;
+  }
+}

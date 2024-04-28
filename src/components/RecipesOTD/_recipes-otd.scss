@@ -1,0 +1,18 @@
+.recipes-otd {
+  [class^="col"]:not(:last-child) {
+    .recipe-card__img {
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 20%;
+        right: -$gutter/2;
+        width: 1px;
+        height: 60%;
+        background-color: black;
+        pointer-events: none;
+      }
+    }
+  }
+}

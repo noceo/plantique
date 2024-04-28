@@ -1,0 +1,35 @@
+.sr-only {
+  @include sr-only;
+}
+
+.vertical {
+  flex-direction: column;
+}
+
+.heading1 {
+  @include heading1;
+}
+
+.heading2 {
+  @include heading2;
+}
+
+.heading3 {
+  @include heading3;
+}
+
+.heading4 {
+  @include heading4;
+}
+
+.dropdown-button {
+  svg {
+    transition: transform 0.3s ease-out;
+  }
+
+  &--open {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+}
