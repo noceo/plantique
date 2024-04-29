@@ -1,7 +1,13 @@
 .recipe-page {
   $content-padding: 70px;
-
   display: flex;
+
+  &__link-back {
+    position: fixed;
+    top: 50px;
+    left: 50px;
+    z-index: 1;
+  }
 
   &__img-stack {
     position: fixed;

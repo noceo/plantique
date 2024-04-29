@@ -3,6 +3,7 @@ import Button from "@/components/Button/Button";
 import CreatorCard from "@/components/CreatorCard/CreatorCard";
 import CustomImage from "@/components/CustomImage/CustomImage";
 import IngredientList from "@/components/IngredientList/IngredientList";
+import NavigationLink from "@/components/NavigationLink/NavigationLink";
 import ProgressBar from "@/components/ProgressBar/ProgressBar";
 import StepsSection from "@/components/StepsSection/StepsSection";
 import { Allergen } from "@/shared/interfaces/allergen.interface";
@@ -153,6 +154,9 @@ export default function Recipe({ params }: PageProps) {
   const { slug } = params;
   return (
     <div className="recipe-page">
+      <div className="recipe-page__link-back">
+        <NavigationLink href="/" variant="back" />
+      </div>
       <div className="recipe-page__img-stack">
         <CustomImage src="https://placehold.co/400" alt="Placeholder" />
       </div>
