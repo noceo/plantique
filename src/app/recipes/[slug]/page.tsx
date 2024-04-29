@@ -3,6 +3,7 @@ import Button from "@/components/Button/Button";
 import CreatorCard from "@/components/CreatorCard/CreatorCard";
 import CustomImage from "@/components/CustomImage/CustomImage";
 import ProgressBar from "@/components/ProgressBar/ProgressBar";
+import StepsSection from "@/components/StepsSection/StepsSection";
 import { Allergen } from "@/shared/interfaces/allergen.interface";
 
 const recipes = [
@@ -193,24 +194,7 @@ export default function Recipe({ params }: PageProps) {
           </div>
         </section>
         <section className="recipe-page__steps">
-          <div className="recipe-page__steps-header">
-            <h2>Steps</h2>
-            <div className="recipe-page__progress-bar">
-              <ProgressBar progress={20} />
-            </div>
-          </div>
-          <div className="recipe-page__steps-items">
-            {steps.map((step, i) => (
-              <p
-                key={"step" + i}
-                className="recipe-page__steps-item"
-                data-step-id={i + 1}
-              >
-                {step}
-              </p>
-            ))}
-          </div>
-          <p className="recipe-page__greeting">Enjoy 🍽️</p>
+          <StepsSection steps={steps} />
         </section>
         <section className="recipe-page__author">
           <h2>Creator</h2>
