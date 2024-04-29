@@ -85,6 +85,18 @@
     }
   }
 
+  &__ingredient-list-control-combo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__control-panel {
+    margin-bottom: 40px;
+    width: 80%;
+    max-width: 400px;
+  }
+
   &__ingredient-list {
     display: block;
     margin-bottom: 40px;

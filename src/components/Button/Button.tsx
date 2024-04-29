@@ -3,8 +3,8 @@
 import { PropsWithChildren } from "react";
 
 interface ButtonProps {
-  variant: "primary" | "secondary";
-  onClick?: () => void;
+  variant: "primary" | "secondary" | "icon-only";
+  onClick?: (event: React.MouseEvent) => void;
 }
 
 export default function Button({

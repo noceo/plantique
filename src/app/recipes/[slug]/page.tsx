@@ -2,9 +2,11 @@ import AllergenInfo from "@/components/AllergenInfo/AllergenInfo";
 import Button from "@/components/Button/Button";
 import CreatorCard from "@/components/CreatorCard/CreatorCard";
 import CustomImage from "@/components/CustomImage/CustomImage";
+import IngredientList from "@/components/IngredientList/IngredientList";
 import ProgressBar from "@/components/ProgressBar/ProgressBar";
 import StepsSection from "@/components/StepsSection/StepsSection";
 import { Allergen } from "@/shared/interfaces/allergen.interface";
+import { Unit } from "@/shared/interfaces/unit.interface";
 
 const recipes = [
   {
@@ -49,72 +51,72 @@ const ingredients = [
   {
     name: "Avocado",
     amount: "1/2",
-    unit: "",
+    unit: null,
   },
   {
     name: "Broccoli",
     amount: "1/5",
-    unit: "",
+    unit: null,
   },
   {
     name: "Onion",
     amount: "1/2",
-    unit: "",
+    unit: null,
   },
   {
     name: "Ginger",
     amount: "1",
-    unit: "small piece",
+    unit: null,
   },
   {
     name: "Lemon",
     amount: "1/4",
-    unit: "",
+    unit: null,
   },
   {
     name: "Sesame Seeds",
     amount: "1/2",
-    unit: "cup",
+    unit: Unit.CUP,
   },
   {
     name: "Peas, frozen",
     amount: "16",
-    unit: "oz",
+    unit: Unit.OUNCE,
   },
   {
     name: "Coconut Milk",
     amount: "1",
-    unit: "cup",
+    unit: Unit.CUP,
   },
   {
     name: "Coconut Oil",
     amount: "2",
-    unit: "Tbsp",
+    unit: Unit.TBSP,
   },
   {
     name: "Apple Vinegar",
     amount: "1",
-    unit: "Tsp",
+    unit: Unit.TSP,
   },
   {
     name: "Veggie Broth",
     amount: "2",
-    unit: "cups",
+    unit: Unit.CUP,
   },
   {
     name: "Turmeric",
     amount: "1",
-    unit: "Tbsp",
+    unit: Unit.TBSP,
   },
   {
     name: "Salt",
     amount: "",
-    unit: "",
+    unit: null,
   },
   {
     name: "Pepper",
     amount: "",
-    unit: "",
+    unit: null,
   },
 ];
 
@@ -158,30 +160,9 @@ export default function Recipe({ params }: PageProps) {
         <section className="recipe-page__overview">
           <h1 className="recipe-page__title">Creamy Cauliflower Curry</h1>
           <p className="recipe-page__description">So juicy!</p>
-          <div className="recipe-page__control-panel"></div>
-          <table className="recipe-page__ingredient-list">
-            <thead className="sr-only">
-              <tr>
-                <th>Amount</th>
-                <th>Ingredient</th>
-              </tr>
-            </thead>
-            <tbody>
-              {ingredients.map((ingredient) => (
-                <tr
-                  key={ingredient.name}
-                  className="recipe-page__ingredient-list-item"
-                >
-                  <td>
-                    <span>
-                      {ingredient.amount} {ingredient.unit}
-                    </span>
-                  </td>
-                  <td>{ingredient.name}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="recipe-page__ingredient-list-control-combo">
+            <IngredientList ingredients={ingredients} />
+          </div>
           <AllergenInfo
             allergens={[
               Allergen.GLUTEN_FREE,

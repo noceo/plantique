@@ -1,0 +1,24 @@
+.control-panel {
+  display: flex;
+  justify-content: space-between;
+
+  &__portion-control {
+    display: flex;
+    justify-content: space-between;
+
+    p {
+      text-align: center;
+      min-width: 70px;
+
+      span {
+        display: block;
+
+        &:first-child {
+          font-size: font-size(24px);
+          font-weight: 700;
+        }
+      }
+      padding-top: 15px;
+    }
+  }
+}
