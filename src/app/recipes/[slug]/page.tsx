@@ -2,12 +2,13 @@ import AllergenInfo from "@/components/AllergenInfo/AllergenInfo";
 import Button from "@/components/Button/Button";
 import CreatorCard from "@/components/CreatorCard/CreatorCard";
 import CustomImage from "@/components/CustomImage/CustomImage";
+import ImageStack from "@/components/ImageStack/ImageStack";
 import IngredientList from "@/components/IngredientList/IngredientList";
 import NavigationLink from "@/components/NavigationLink/NavigationLink";
-import ProgressBar from "@/components/ProgressBar/ProgressBar";
 import StepsSection from "@/components/StepsSection/StepsSection";
 import { Allergen } from "@/shared/interfaces/allergen.interface";
 import { Unit } from "@/shared/interfaces/unit.interface";
+import CurrentImageProvider from "@/shared/providers/CurrentImageProvider";
 
 const recipes = [
   {
@@ -153,47 +154,55 @@ export async function generateStaticParams(): Promise<PageParams[]> {
 export default function Recipe({ params }: PageProps) {
   const { slug } = params;
   return (
-    <div className="recipe-page">
-      <div className="recipe-page__link-back">
-        <NavigationLink href="/" variant="back" />
-      </div>
-      <div className="recipe-page__img-stack">
-        <CustomImage src="https://placehold.co/400" alt="Placeholder" />
-      </div>
-      <div className="recipe-page__content">
-        <section className="recipe-page__overview">
-          <h1 className="recipe-page__title">Creamy Cauliflower Curry</h1>
-          <p className="recipe-page__description">So juicy!</p>
-          <div className="recipe-page__ingredient-list-control-combo">
-            <IngredientList ingredients={ingredients} />
-          </div>
-          <AllergenInfo
-            allergens={[
-              Allergen.GLUTEN_FREE,
-              Allergen.NUT_FREE,
-              Allergen.SOY_FREE,
-            ]}
-          />
-          <div className="recipe-page__btn-shopping-list">
-            <Button variant="primary">Add to Shopping List</Button>
-          </div>
-        </section>
-        <section className="recipe-page__steps">
-          <StepsSection steps={steps} />
-        </section>
-        <section className="recipe-page__author">
-          <h2>Creator</h2>
-          <div className="recipe-page__author-info">
-            <CreatorCard
-              name={author.name}
-              slogan={author.slogan}
-              member_since={author.created_at}
-              imgSrc={author.imgSrc}
+    <CurrentImageProvider>
+      <div className="recipe-page">
+        <div className="recipe-page__link-back">
+          <NavigationLink href="/" variant="back" />
+        </div>
+        <div className="recipe-page__img-stack">
+          <ImageStack>
+            <CustomImage src="https://picsum.photos/400" alt="Placeholder" />
+            <CustomImage src="https://picsum.photos/410" alt="Placeholder" />
+            <CustomImage src="https://picsum.photos/420" alt="Placeholder" />
+            <CustomImage src="https://picsum.photos/430" alt="Placeholder" />
+            <CustomImage src="https://picsum.photos/440" alt="Placeholder" />
+          </ImageStack>
+        </div>
+        <div className="recipe-page__content">
+          <section className="recipe-page__overview">
+            <h1 className="recipe-page__title">Creamy Cauliflower Curry</h1>
+            <p className="recipe-page__description">So juicy!</p>
+            <div className="recipe-page__ingredient-list-control-combo">
+              <IngredientList ingredients={ingredients} />
+            </div>
+            <AllergenInfo
+              allergens={[
+                Allergen.GLUTEN_FREE,
+                Allergen.NUT_FREE,
+                Allergen.SOY_FREE,
+              ]}
             />
-          </div>
-        </section>
-        <section className="recipe-page__suggestions"></section>
+            <div className="recipe-page__btn-shopping-list">
+              <Button variant="primary">Add to Shopping List</Button>
+            </div>
+          </section>
+          <section className="recipe-page__steps">
+            <StepsSection steps={steps} />
+          </section>
+          <section className="recipe-page__author">
+            <h2>Creator</h2>
+            <div className="recipe-page__author-info">
+              <CreatorCard
+                name={author.name}
+                slogan={author.slogan}
+                member_since={author.created_at}
+                imgSrc={author.imgSrc}
+              />
+            </div>
+          </section>
+          <section className="recipe-page__suggestions"></section>
+        </div>
       </div>
-    </div>
+    </CurrentImageProvider>
   );
 }

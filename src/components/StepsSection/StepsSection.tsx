@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import ProgressBar from "../ProgressBar/ProgressBar";
+import { CurrentImageContext } from "@/shared/providers/CurrentImageProvider";
 
 interface StepsSectionProps {
   steps: Array<string>;
@@ -9,6 +10,9 @@ interface StepsSectionProps {
 
 export default function StepsSection({ steps }: StepsSectionProps) {
   const [currentStep, setCurrentStep] = useState(0);
+  const { setCurrentImage } = useContext(
+    CurrentImageContext
+  ) as CurrentImageContext;
   const headerHeight = useRef(0);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const progress = useMemo(
@@ -56,6 +60,10 @@ export default function StepsSection({ steps }: StepsSectionProps) {
       };
     });
   }, []);
+
+  useEffect(() => {
+    setCurrentImage(currentStep);
+  }, [currentStep, setCurrentImage]);
 
   return (
     <>
