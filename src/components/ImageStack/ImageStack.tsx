@@ -16,13 +16,15 @@ export default function ImageStack({ children }: ImageStackProps) {
   const { currentImage } = useContext(
     CurrentImageContext
   ) as CurrentImageContext;
-  const childElements = Children.toArray(children);
+  const childElements = Children.toArray(
+    children
+  ) as React.ReactElement<Image>[];
 
   return (
     <div className="image-stack">
       {childElements.map((child, i) => (
         <div
-          key={child.toString()}
+          key={child.props.src}
           className={
             "image-stack__item" +
             (currentImage === i ||
