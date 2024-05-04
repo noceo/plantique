@@ -1,6 +1,6 @@
 "use client";
 
-import { PropsWithChildren, createContext, useState } from "react";
+import { PropsWithChildren, createContext, useState, useContext } from "react";
 
 export interface CurrentImageContext {
   currentImage: number;
@@ -10,6 +10,9 @@ export interface CurrentImageContext {
 export const CurrentImageContext = createContext<CurrentImageContext | null>(
   null
 );
+
+export const useCurrentImage = () =>
+  useContext<CurrentImageContext | null>(CurrentImageContext);
 
 export default function CurrentImageProvider({ children }: PropsWithChildren) {
   const [currentImage, setCurrentImage] = useState(0);

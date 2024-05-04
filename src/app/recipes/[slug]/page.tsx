@@ -8,7 +8,7 @@ import NavigationLink from "@/components/NavigationLink/NavigationLink";
 import StepsSection from "@/components/StepsSection/StepsSection";
 import { Allergen } from "@/shared/interfaces/allergen.interface";
 import { Unit } from "@/shared/interfaces/unit.interface";
-import CurrentImageProvider from "@/shared/providers/CurrentImageProvider";
+import CurrentImageProvider from "@/shared/context/CurrentImageContext";
 
 const recipes = [
   {

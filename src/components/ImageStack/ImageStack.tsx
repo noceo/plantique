@@ -1,7 +1,10 @@
 "use client";
 
 import { Children, useContext, useState } from "react";
-import { CurrentImageContext } from "@/shared/providers/CurrentImageProvider";
+import {
+  CurrentImageContext,
+  useCurrentImage,
+} from "@/shared/context/CurrentImageContext";
 
 interface Image {
   src: string;
@@ -13,9 +16,7 @@ interface ImageStackProps {
 }
 
 export default function ImageStack({ children }: ImageStackProps) {
-  const { currentImage } = useContext(
-    CurrentImageContext
-  ) as CurrentImageContext;
+  const { currentImage } = useCurrentImage() as CurrentImageContext;
   const childElements = Children.toArray(
     children
   ) as React.ReactElement<Image>[];
