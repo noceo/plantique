@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display } from "next/font/google";
 import { Poppins } from "next/font/google";
 import "../styles/main.scss";
+import UserProvider from "@/shared/context/UserContext.context";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -33,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${playfair.variable} ${poppins.variable}`}>
-        {children}
+        <UserProvider>{children}</UserProvider>
       </body>
     </html>
   );
