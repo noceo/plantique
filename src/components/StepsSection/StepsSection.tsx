@@ -2,7 +2,7 @@
 
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import ProgressBar from "../ProgressBar/ProgressBar";
-import { CurrentImageContext } from "@/shared/context/CurrentImageContext";
+import { CurrentImageContext } from "@/shared/context/CurrentImageContext.context";
 
 interface StepsSectionProps {
   steps: Array<string>;

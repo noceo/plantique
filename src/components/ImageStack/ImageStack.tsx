@@ -4,7 +4,7 @@ import { Children, useContext, useState } from "react";
 import {
   CurrentImageContext,
   useCurrentImage,
-} from "@/shared/context/CurrentImageContext";
+} from "@/shared/context/CurrentImageContext.context";
 
 interface Image {
   src: string;
