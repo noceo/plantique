@@ -5,6 +5,7 @@ type ValidFieldNames = "email" | "password";
 interface FormFieldProps {
   type: string;
   placeholder: string;
+  defaultValue?: string;
   name: ValidFieldNames;
   register: UseFormRegister<any>;
   error?: FieldError;
@@ -14,6 +15,7 @@ interface FormFieldProps {
 export default function FormField({
   type,
   placeholder,
+  defaultValue,
   name,
   register,
   error,
@@ -24,6 +26,7 @@ export default function FormField({
       <input
         type={type}
         placeholder={placeholder}
+        defaultValue={defaultValue}
         {...register(name, { valueAsNumber })}
       />
       <span className="form-field__error">{error?.message}</span>
