@@ -62,6 +62,19 @@ async function login(data: { email: string; password: string }) {
   }
 }
 
+async function logout() {
+  try {
+    await customFetch(`${BASE_URL!}/auth/logout`, {
+      method: "GET",
+      credentials: "include",
+    });
+  } catch (err) {
+    throw new Error("An unknown error occured while logging out", {
+      cause: err,
+    });
+  }
+}
+
 async function verifyRefreshToken() {
   try {
     const user = await customFetch<User>(`${BASE_URL!}/auth/validate`, {
@@ -84,4 +97,4 @@ async function verifyRefreshToken() {
   }
 }
 
-export { login, verifyRefreshToken };
+export { login, logout, verifyRefreshToken };

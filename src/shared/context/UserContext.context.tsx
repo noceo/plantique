@@ -10,7 +10,6 @@ import {
 } from "react";
 import User from "../interfaces/user.interface";
 import { verifyRefreshToken } from "../services/httpClient.service";
-import { useRouter } from "next/navigation";
 
 export interface UserContext {
   user: User | null;
@@ -25,7 +24,7 @@ export const useUser = () => useContext<UserContext | null>(UserContext);
 export default function UserProvider({ children }: PropsWithChildren) {
   const [user, setUser] = useState<User | null>(null);
   const loggedIn = Boolean(user);
-  const router = useRouter();
+  const [firstRender, setFirstRender] = useState(true);
 
   const checkAuth = useCallback(async () => {
     try {
@@ -38,8 +37,11 @@ export default function UserProvider({ children }: PropsWithChildren) {
   }, []);
 
   useEffect(() => {
-    if (!user) checkAuth();
-  }, [checkAuth]);
+    if (firstRender && !user) {
+      checkAuth();
+      setFirstRender(false);
+    }
+  }, [firstRender, user, checkAuth]);
 
   return (
     <UserContext.Provider value={{ user, setUser, loggedIn }}>
