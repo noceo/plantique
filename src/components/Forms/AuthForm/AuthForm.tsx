@@ -4,6 +4,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { z } from "zod";
 import FormField from "../FormField/FormField";
+import User from "@/shared/interfaces/user.interface";
+import { login } from "@/shared/services/httpClient.service";
+
+interface AuthFormProps {
+  onAuthorizationComplete: (user: User) => void;
+}
 
 const schema = z.object({
   email: z.string().email(),
@@ -12,7 +18,7 @@ const schema = z.object({
 
 export type AuthFormFields = z.infer<typeof schema>;
 
-export default function AuthForm() {
+export default function AuthForm({ onAuthorizationComplete }: AuthFormProps) {
   const {
     register,
     handleSubmit,
@@ -23,8 +29,13 @@ export default function AuthForm() {
   });
 
   const onSubmit: SubmitHandler<AuthFormFields> = async (data) => {
-    await new Promise<any>((resolve) => setTimeout(resolve, 1000));
-    console.log(data);
+    console.log(process.env.NEXT_PUBLIC_API_URL);
+    try {
+      const user = await login(data);
+      onAuthorizationComplete(user!);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -33,12 +44,14 @@ export default function AuthForm() {
         name="email"
         type="email"
         placeholder="Email"
+        defaultValue="alice@prisma.io"
         register={register}
         error={errors.email}
       />
       <FormField
         name="password"
         type="password"
+        defaultValue="aliceprisma"
         placeholder="Password"
         register={register}
         error={errors.password}

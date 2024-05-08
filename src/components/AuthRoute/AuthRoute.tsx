@@ -1,57 +1,33 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { PropsWithChildren, useCallback, useEffect, useState } from "react";
-import User from "@/shared/interfaces/user.interface";
 import { UserContext, useUser } from "@/shared/context/UserContext.context";
-
-function getUserStatus(token: string | undefined) {
-  if (token === "admin") {
-    return "admin";
-  } else if (token === "user") {
-    return "user";
-  } else {
-    return "guest";
-  }
-}
+import { verifyRefreshToken } from "@/shared/services/httpClient.service";
 
 export default function AuthRoute({ children }: PropsWithChildren) {
   const router = useRouter();
-  const pathname = usePathname();
   const [authorized, setAuthorized] = useState(false);
   const { user, setUser } = useUser() as UserContext;
 
-  const getAccessToken = async () => {
-    await new Promise<any>((resolve) => setTimeout(resolve, 1000));
-    return "newAccessToken";
-  };
-
   const checkAuth = useCallback(async () => {
-    console.log("Check auth");
-    let token = user?.accessToken;
-    if (!token) {
+    if (!user) {
       try {
-        token = await getAccessToken();
+        const refreshedUser = await verifyRefreshToken();
+        console.log("REFRESHHED_USER: ", refreshedUser);
+        setUser(refreshedUser);
       } catch (err) {
         router.replace("/login");
+        return;
       }
     }
-    console.log(token);
-
-    const userStatus = getUserStatus(token);
-    console.log(userStatus, pathname);
-
-    if (userStatus === "guest") {
-      router.replace("/login");
-    } else {
-      setAuthorized(true);
-    }
-  }, [pathname, router, user?.accessToken]);
+    setAuthorized(true);
+  }, [user, setUser, router]);
 
   useEffect(() => {
     setAuthorized(false);
     checkAuth();
-  }, [pathname, checkAuth]);
+  }, [checkAuth]);
 
   return authorized && children;
 }

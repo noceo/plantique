@@ -1,11 +1,20 @@
 "use client";
 
-import { PropsWithChildren, createContext, useState, useContext } from "react";
+import {
+  PropsWithChildren,
+  createContext,
+  useState,
+  useContext,
+  useEffect,
+  useCallback,
+} from "react";
 import User from "../interfaces/user.interface";
+import { verifyRefreshToken } from "../services/httpClient.service";
+import { useRouter } from "next/navigation";
 
 export interface UserContext {
   user: User | null;
-  setUser: (user: User) => void;
+  setUser: (user: User | null) => void;
   loggedIn: boolean;
 }
 
@@ -16,6 +25,21 @@ export const useUser = () => useContext<UserContext | null>(UserContext);
 export default function UserProvider({ children }: PropsWithChildren) {
   const [user, setUser] = useState<User | null>(null);
   const loggedIn = Boolean(user);
+  const router = useRouter();
+
+  const checkAuth = useCallback(async () => {
+    try {
+      const refreshedUser = await verifyRefreshToken();
+      console.log("REFRESHED_USER: ", refreshedUser);
+      setUser(refreshedUser);
+    } catch (err) {
+      return;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!user) checkAuth();
+  }, [checkAuth]);
 
   return (
     <UserContext.Provider value={{ user, setUser, loggedIn }}>
