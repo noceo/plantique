@@ -18,17 +18,11 @@
 @import "../components/NavigationLink/navigation-link";
 @import "../components/ImageStack/image-stack";
 @import "../components/Forms/form";
+@import "../components/Modal/modal";
+@import "../components/Navbar/navbar";
+@import "../components/Sidebar/sidebar";
+@import "../components/Sidebar/sidebar-link";
+@import "../components/ProfileControls/profile-controls";
 @import "./pages/recipe-page";
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  font-family: var(--font-poppins);
-  font-weight: 400;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
+@import "./pages/profile-page";
+@import "./pages/my-recipes";

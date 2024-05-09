@@ -1,14 +1,13 @@
 html,
 body {
-  height: 100%;
-  color: map-get($map: $colors, $key: text);
-  background-color: map-get($map: $colors, $key: orange);
-  transition: background-color 0.3s ease-in-out;
+  max-width: 100vw;
+  overflow-x: clip;
+  font-family: var(--font-poppins);
+  font-weight: 400;
 }
 
 body {
   font-size: $html-font-size;
-  overflow-x: hidden;
 }
 
 img {
@@ -31,5 +30,6 @@ button {
 }
 
 a {
-  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
 }

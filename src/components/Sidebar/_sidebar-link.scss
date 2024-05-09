@@ -1,0 +1,32 @@
+.sidebar-link {
+  padding: 15px;
+  font-size: font-size(22px);
+  cursor: pointer;
+
+  a {
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      width: 0;
+      background-color: black;
+      transition: width 0.2s ease-out;
+    }
+  }
+
+  &:hover {
+    a::after {
+      width: 100%;
+    }
+  }
+
+  &--active {
+    a::after {
+      width: 100%;
+    }
+  }
+}

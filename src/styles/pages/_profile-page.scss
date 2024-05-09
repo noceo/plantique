@@ -1,0 +1,24 @@
+.profile-page {
+  .row:first-child {
+    position: sticky;
+    top: 0;
+  }
+
+  &__sidebar {
+    position: sticky;
+    top: 120px;
+    height: calc(100vh - 120px);
+  }
+
+  &__navbar {
+    position: sticky;
+    top: 0;
+    min-height: 120px;
+  }
+
+  &__content {
+    position: sticky;
+    top: 0;
+    height: 2000px;
+  }
+}

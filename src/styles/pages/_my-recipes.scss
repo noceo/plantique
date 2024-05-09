@@ -1,0 +1,11 @@
+.my-recipes {
+  position: sticky;
+  top: 120px;
+
+  &__header {
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+  }
+}

@@ -1,5 +1,6 @@
 .nav-link {
-  &--back {
+  &--back,
+  &--close {
     position: relative;
     display: block;
     width: 45px;
@@ -11,16 +12,6 @@
     -webkit-user-select: none;
     will-change: transform;
 
-    &::after {
-      content: url("/icons/chevron-left.svg");
-      position: absolute;
-      top: 50%;
-      left: 48%;
-      width: 60%;
-      height: 60%;
-      transform: translate(-50%, -50%);
-    }
-
     &:hover {
       box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
       transform: translateY(-2px);
@@ -30,5 +21,22 @@
       box-shadow: none;
       transform: translateY(0);
     }
+
+    &::after {
+      position: absolute;
+      top: 50%;
+      left: 48%;
+      width: 60%;
+      height: 60%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &--back::after {
+    content: url("/icons/chevron-left.svg");
+  }
+
+  &--close::after {
+    content: url("/icons/chevron-left.svg");
   }
 }

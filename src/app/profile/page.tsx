@@ -1,23 +1,14 @@
 "use client";
 
-import { UserContext, useUser } from "@/shared/context/UserContext.context";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Profile() {
-  const { user } = useUser() as UserContext;
+  const router = useRouter();
 
   useEffect(() => {
-    console.log("Profile auth");
-  });
+    router.replace("/profile/my-recipes");
+  }, [router]);
 
-  return (
-    <div className="profile-page">
-      <p>{user?.id}</p>
-      <p>{user?.email}</p>
-      <p>{user?.accessToken}</p>
-      <p>Role: {user?.role}</p>
-      <Link href={"/"}>Back to home</Link>
-    </div>
-  );
+  return null;
 }
