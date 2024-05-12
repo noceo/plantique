@@ -18,10 +18,8 @@ export default function QueryProvider({ children }: { children: ReactNode }) {
   const { user, setUser } = useUser() as UserContext;
 
   const onError = async (error: Error) => {
-    console.log("QUERY ERROR", error);
     if (error instanceof ResponseError) {
-      if (error.response.status === 400 || error.response.status === 401) {
-        console.log("Error Handle");
+      if (error.response.status === 401) {
         await logout();
         setUser(null);
       }

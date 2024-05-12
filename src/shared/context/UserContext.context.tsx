@@ -42,7 +42,6 @@ export default function UserProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     if (firstRender && !user) {
-      console.log("BAD");
       checkAuth();
       setFirstRender(false);
     }

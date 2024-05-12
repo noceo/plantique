@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function MyRecipes() {
   const { user } = useUser() as UserContext;
-  const { data, isLoading, isError, error, status } = useRecipes({
+  const { data, isLoading, isError, error } = useRecipes({
     endpoint: "?userID=1",
     accessToken: user?.accessToken,
   });

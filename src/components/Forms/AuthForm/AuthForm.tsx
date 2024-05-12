@@ -29,7 +29,6 @@ export default function AuthForm({ onAuthorizationComplete }: AuthFormProps) {
   });
 
   const onSubmit: SubmitHandler<AuthFormFields> = async (data) => {
-    console.log(process.env.NEXT_PUBLIC_API_URL);
     try {
       const user = await login(data);
       onAuthorizationComplete(user!);
