@@ -13,7 +13,7 @@ export default function SidebarLink({
   children,
 }: PropsWithChildren<SidebarLinkProps>) {
   const pathname = usePathname();
-  const isActive = pathname.endsWith(href);
+  const isActive = pathname.includes(href);
 
   return (
     <div className={"sidebar-link" + (isActive ? " sidebar-link--active" : "")}>

@@ -1,11 +1,25 @@
 .my-recipes {
-  position: sticky;
-  top: 120px;
+  height: inherit;
 
   &__header {
     position: sticky;
     top: 0;
     display: flex;
     justify-content: space-between;
+    background-color: white;
+    min-height: 80px;
+  }
+
+  &__content {
+    height: calc(100vh - 120px - 80px);
+    overflow-y: auto;
+
+    li {
+      border-bottom: 1px solid black;
+    }
+
+    ul {
+      height: 5000px;
+    }
   }
 }

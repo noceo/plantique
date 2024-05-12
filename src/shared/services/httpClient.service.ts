@@ -1,13 +1,20 @@
+import Recipe from "../interfaces/recipe.interface";
 import User from "../interfaces/user.interface";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
-class ResponseError extends Error {
+export class ResponseError extends Error {
   response: Response;
 
   constructor(message: string, res: Response) {
     super(message);
     this.response = res;
+  }
+}
+
+export class UnauthorizedError extends Error {
+  constructor() {
+    super("Unauthorized");
   }
 }
 
@@ -86,7 +93,7 @@ async function verifyRefreshToken() {
     if (err instanceof ResponseError) {
       switch (err.response.status) {
         case 401:
-          throw new Error("Unauthorized");
+          throw new UnauthorizedError();
       }
     } else {
       throw new Error("An unknown error occured when fetching the user", {
@@ -97,4 +104,30 @@ async function verifyRefreshToken() {
   }
 }
 
-export { login, logout, verifyRefreshToken };
+const getRecipesByUserID = async (id: number, accessToken: string) => {
+  try {
+    const recipes = await customFetch<Array<Recipe>>(
+      `${BASE_URL!}/recipes?userID=${id}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return recipes;
+  } catch (err: unknown) {
+    if (err instanceof ResponseError) {
+      switch (err.response.status) {
+        case 401:
+          throw new UnauthorizedError();
+      }
+    } else {
+      throw new Error("An unknown error occured when fetching the user", {
+        cause: err,
+      });
+    }
+  }
+};
+
+export { login, logout, verifyRefreshToken, getRecipesByUserID };

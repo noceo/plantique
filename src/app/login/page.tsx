@@ -14,7 +14,7 @@ export default function Login() {
     if (user) {
       router.replace("/profile");
     }
-  });
+  }, [user, router]);
 
   const onLogin = (user: User) => {
     console.log("logged in: ", user);

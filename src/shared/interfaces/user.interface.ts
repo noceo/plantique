@@ -3,5 +3,6 @@ export default interface User {
   email: string;
   name?: string;
   accessToken: string;
+  exp: string;
   role: "user" | "guest";
 }

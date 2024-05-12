@@ -17,8 +17,6 @@
   }
 
   &__content {
-    position: sticky;
-    top: 0;
-    height: 2000px;
+    height: calc(100vh - 120px);
   }
 }
