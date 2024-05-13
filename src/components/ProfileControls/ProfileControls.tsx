@@ -4,6 +4,8 @@ import { UserContext, useUser } from "@/shared/context/UserContext.context";
 import { logout } from "@/shared/services/httpClient.service";
 import Link from "next/link";
 import CustomImage from "../CustomImage/CustomImage";
+import Button from "../Button/Button";
+import Avatar from "../Avatar/Avatar";
 
 export default function ProfileControls() {
   const { user, setUser } = useUser() as UserContext;
@@ -20,11 +22,15 @@ export default function ProfileControls() {
   return (
     <div className="profile-controls">
       {user ? (
-        <button onClick={onLogout}>Logout</button>
+        <Button variant="primary" onClick={onLogout}>
+          Logout
+        </Button>
       ) : (
         <Link href="/login">Login</Link>
       )}
-      <button className="avatar">Avatar</button>
+      <div className="profile-controls__avatar">
+        <Avatar />
+      </div>
     </div>
   );
 }

@@ -1,9 +1,10 @@
 "use client";
 
+import Button from "@/components/Button/Button";
 import RecipeList from "@/components/RecipeList/RecipeList";
 import { UserContext, useUser } from "@/shared/context/UserContext.context";
 import useRecipes from "@/shared/hooks/use-recipes.hook";
-import Link from "next/link";
+import PlusIcon from "@/../public/icons/plus.svg";
 
 export default function MyRecipes() {
   const { user } = useUser() as UserContext;
@@ -17,7 +18,9 @@ export default function MyRecipes() {
     <div className="my-recipes">
       <div className="my-recipes__header">
         <h1>My Recipes</h1>
-        <Link href="/profile/my-recipes/create">Add Recipe</Link>
+        <Button variant="icon-only" href="/profile/my-recipes/create">
+          <PlusIcon />
+        </Button>
       </div>
       <div className="my-recipes__content">
         {isError && <p>Error: {JSON.stringify(error)}</p>}
