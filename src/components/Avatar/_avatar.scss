@@ -1,0 +1,25 @@
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+
+  button {
+    width: inherit;
+    height: inherit;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+
+    :hover {
+      cursor: pointer;
+    }
+
+    .custom-img {
+      border-radius: inherit;
+
+      img {
+        border-radius: inherit;
+      }
+    }
+  }
+}
