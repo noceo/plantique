@@ -1,23 +1,39 @@
 "use client";
 
-import { PropsWithChildren } from "react";
+import Link from "next/link";
+import { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
 
-interface ButtonProps {
+type ButtonAnchorIntersection = ButtonHTMLAttributes<HTMLButtonElement> &
+  AnchorHTMLAttributes<HTMLAnchorElement>;
+
+interface ButtonProps extends ButtonAnchorIntersection {
   variant: "primary" | "secondary" | "icon-only";
-  onClick?: (event: React.MouseEvent) => void;
+  href?: string;
 }
 
 export default function Button({
   variant,
-  onClick,
+  href,
   children,
-}: PropsWithChildren<ButtonProps>) {
+  ...props
+}: ButtonProps) {
+  if (href) {
+    if (href.startsWith("http") || href.startsWith("www")) {
+      return (
+        <a {...props} href={href} className={"btn " + ("btn--" + variant)}>
+          {children}
+        </a>
+      );
+    }
+    return (
+      <Link {...props} href={href} className={"btn " + ("btn--" + variant)}>
+        {children}
+      </Link>
+    );
+  }
+
   return (
-    <button
-      className={"btn " + ("btn--" + variant)}
-      tabIndex={0}
-      onClick={onClick}
-    >
+    <button {...props} className={"btn " + ("btn--" + variant)} tabIndex={0}>
       {children}
     </button>
   );

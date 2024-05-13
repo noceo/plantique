@@ -2,7 +2,7 @@
   display: inline-block;
   min-height: 50px;
   border: none;
-  padding: 16px 24px;
+  padding: 10px 24px;
   border-radius: 15px;
   text-align: center;
   text-decoration: none;
@@ -11,28 +11,30 @@
   -webkit-user-select: none;
   cursor: pointer;
   touch-action: manipulation;
-  width: 100%;
   will-change: transform;
 
   &--primary {
     background-color: black;
     color: white;
-
-    &:hover {
-      box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
-      transform: translateY(-2px);
-    }
   }
 
   &--icon-only {
+    background-color: white;
+    border: 1px solid black;
     border-radius: 50%;
-    background-color: gray;
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+  }
+
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0 3px 10px;
+    transform: translateY(-1px);
   }
 
   &:disabled {
     pointer-events: none;
+    background-color: lightgray;
   }
 
   &:active {
