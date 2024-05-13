@@ -22,5 +22,12 @@ export default function Login() {
     router.replace("/profile");
   };
 
-  return <AuthForm onAuthorizationComplete={onLogin} />;
+  return (
+    <div className="login-page">
+      <div className="login-page__form">
+        <h1>Login</h1>
+        <AuthForm onAuthorizationComplete={onLogin} />
+      </div>
+    </div>
+  );
 }

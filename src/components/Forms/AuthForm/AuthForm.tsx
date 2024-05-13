@@ -6,6 +6,7 @@ import { z } from "zod";
 import FormField from "../FormField/FormField";
 import User from "@/shared/interfaces/user.interface";
 import { login } from "@/shared/services/httpClient.service";
+import Button from "@/components/Button/Button";
 
 interface AuthFormProps {
   onAuthorizationComplete: (user: User) => void;
@@ -55,9 +56,14 @@ export default function AuthForm({ onAuthorizationComplete }: AuthFormProps) {
         register={register}
         error={errors.password}
       />
-      <button disabled={isSubmitting} type="submit" className="submit-button">
-        {isSubmitting ? "Loading..." : "Login"}
-      </button>
+      <Button
+        variant="primary"
+        disabled={isSubmitting}
+        type="submit"
+        className="submit-button"
+      >
+        {isSubmitting ? "Loading..." : "Be plantique"}
+      </Button>
     </form>
   );
 }

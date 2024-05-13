@@ -1,0 +1,23 @@
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+
+  &__form {
+    width: 60%;
+    max-width: 500px;
+    padding: 60px;
+    margin: 20px;
+    border-radius: 25px;
+    box-shadow: 0 0 10px black;
+    text-align: center;
+
+    h1 {
+      @include font-sans-serif;
+      font-size: font-size(24px);
+      font-weight: 500;
+      margin-bottom: 40px;
+    }
+  }
+}
