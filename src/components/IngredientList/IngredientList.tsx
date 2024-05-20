@@ -1,6 +1,6 @@
 "use client";
 
-import { Ingredient } from "@/shared/interfaces/ingredient.interface";
+import Ingredient from "@/shared/interfaces/ingredient.interface";
 import ControlPanel from "../ContolPanel/ControlPanel";
 import { useCallback } from "react";
 import Button from "../Button/Button";

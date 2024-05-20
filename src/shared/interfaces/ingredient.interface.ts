@@ -1,6 +1,6 @@
 import { Unit } from "./unit.interface";
 
-export interface Ingredient {
+export default interface Ingredient {
   name: string;
   amount: string;
   unit: Unit | null;

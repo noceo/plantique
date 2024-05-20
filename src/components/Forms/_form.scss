@@ -1,16 +1,12 @@
 .form {
-  &--auth {
-  }
-
-  input {
-    display: block;
-  }
-
   .form-field {
-    &__error {
-      display: block;
-      min-height: 40px;
-      color: red;
-    }
+    margin-bottom: 20px;
+  }
+
+  .form-error {
+    display: block;
+    min-height: 20px;
+    color: red;
+    font-size: font-size(14px);
   }
 }

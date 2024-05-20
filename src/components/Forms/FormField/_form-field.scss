@@ -1,5 +1,11 @@
 .form-field {
   input {
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  input,
+  .SelectTrigger {
     width: 100%;
     min-height: 50px;
     padding: 0 20px;

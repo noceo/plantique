@@ -1,4 +1,4 @@
-import { Ingredient } from "./ingredient.interface";
+import Ingredient from "./ingredient.interface";
 import User from "./user.interface";
 
 export default interface Recipe {

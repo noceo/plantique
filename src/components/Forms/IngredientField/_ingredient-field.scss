@@ -1,0 +1,19 @@
+.ingredient-field {
+  display: flex;
+  align-items: center;
+  min-width: 400px;
+  padding: 10px 0;
+
+  .form-field {
+    flex: 1;
+    margin-bottom: 0;
+
+    &:first-child {
+      flex: 3;
+    }
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+}
