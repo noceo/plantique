@@ -34,10 +34,10 @@ interface SelectFieldProps extends Select.SelectProps {
 export default function SelectField({
   options,
   placeholder,
-  onValueChange,
+  ...props
 }: SelectFieldProps) {
   return (
-    <Select.Root onValueChange={onValueChange}>
+    <Select.Root {...props}>
       <Select.Trigger className="SelectTrigger" aria-label="Food">
         <Select.Value placeholder={placeholder} />
         <Select.Icon className="SelectIcon">

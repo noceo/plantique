@@ -1,39 +1,41 @@
 "use client";
 
-import Button from "@/components/Button/Button";
-import RecipeList from "@/components/RecipeList/RecipeList";
+import RecipeForm from "@/components/Forms/RecipeForm/RecipeForm";
 import { UserContext, useUser } from "@/shared/context/UserContext.context";
 import useRecipes from "@/shared/hooks/use-recipes.hook";
-import PlusIcon from "@/../public/icons/plus.svg";
 import Recipe from "@/shared/interfaces/recipe.interface";
+import { boolean } from "zod";
 
-export default function MyRecipes() {
+interface EditRecipeProps {
+  recipe: Recipe;
+  params: {
+    id: string;
+  };
+}
+
+export default function EditRecipe({ params }: EditRecipeProps) {
   const { user } = useUser() as UserContext;
   const {
-    data: recipes,
+    data: recipe,
     isLoading,
     isRefetching,
-    isError,
-    error,
   } = useRecipes({
-    endpoint: "?userID=1",
+    endpoint: `/${params.id}`,
+    queryKey: `recipe.${params.id}`,
     accessToken: user?.accessToken,
   });
+  console.log(params.id, recipe);
 
   return (
     <div className="my-recipes">
       <div className="my-recipes__header">
-        <h1>My Recipes</h1>
-        <Button variant="icon-only" href="/profile/my-recipes/create">
-          <PlusIcon />
-        </Button>
+        <h1>Edit Recipe</h1>
       </div>
       <div className="my-recipes__content">
-        {isError && <p>Error: {JSON.stringify(error)}</p>}
         {isLoading || isRefetching ? (
           <p>Loading</p>
         ) : (
-          <RecipeList recipes={recipes as Recipe[]} />
+          <RecipeForm recipe={recipe as Recipe} />
         )}
       </div>
     </div>

@@ -7,7 +7,10 @@ interface RecipeListItemProps {
 
 export default function RecipeListItem({ recipe }: RecipeListItemProps) {
   return (
-    <Link className="recipe-list-item" href="/profile/my-recipes">
+    <Link
+      className="recipe-list-item"
+      href={`/profile/my-recipes/edit/${recipe.id}`}
+    >
       <span>{recipe.title}</span>
     </Link>
   );

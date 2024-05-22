@@ -6,6 +6,7 @@ interface RecipeListProps {
 }
 
 export default function RecipeList({ recipes }: RecipeListProps) {
+  console.log(recipes);
   return (
     <ul>
       {recipes.map((recipe) => (

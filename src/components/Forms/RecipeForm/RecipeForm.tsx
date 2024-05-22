@@ -10,21 +10,26 @@ import {
 import { z } from "zod";
 import FormField from "../FormField/FormField";
 import Button from "@/components/Button/Button";
-import Recipe from "@/shared/interfaces/recipe.interface";
+import Recipe, { RecipeMutation } from "@/shared/interfaces/recipe.interface";
 import { UserContext, useUser } from "@/shared/context/UserContext.context";
 import { Unit } from "@/shared/interfaces/unit.interface";
 import { useRouter } from "next/navigation";
 import IngredientField from "../IngredientField/IngredientField";
 import PlusIcon from "@/../public/icons/plus.svg";
 import useIngredients from "@/shared/hooks/use-ingredients.hook";
+import { useCallback, useEffect } from "react";
+import useRecipeMutation from "@/shared/hooks/use-recipes-mutation.hook";
 
 interface RecipeFormProps {
   recipe?: Recipe;
 }
 
 const ingredientSchema = z.object({
-  id: z.number().int().nonnegative(),
-  amount: z.number(),
+  ingredient: z.object({
+    id: z.number().int().nonnegative(),
+    name: z.string().min(3),
+  }),
+  quantity: z.number(),
   unit: z.enum(["CUP", "TABLESPOON", "TEASPOON", "OUNCE"]),
 });
 
@@ -36,9 +41,30 @@ const schema = z.object({
 
 export type RecipeFormFields = z.infer<typeof schema>;
 
+const EmptyIngredient = {
+  ingredient: { id: undefined, name: undefined },
+  quantity: undefined,
+  unit: undefined,
+};
+
 export default function RecipeForm({ recipe }: RecipeFormProps) {
   const router = useRouter();
   const { user } = useUser() as UserContext;
+
+  const createRecipeMutation = useRecipeMutation({
+    mutationKey: `recipe.${recipe?.id}`,
+    method: "POST",
+    endpoint: `/${recipe?.id}`,
+    accessToken: user?.accessToken,
+  });
+
+  const updateRecipeMutation = useRecipeMutation({
+    mutationKey: `recipe.${recipe?.id}`,
+    method: "PUT",
+    endpoint: `/${recipe?.id}`,
+    accessToken: user?.accessToken,
+  });
+
   const {
     data: ingredients,
     isLoading,
@@ -48,10 +74,11 @@ export default function RecipeForm({ recipe }: RecipeFormProps) {
     endpoint: "",
     accessToken: user?.accessToken,
   });
-  console.log(ingredients, error, isError, isLoading);
+
   const {
     register,
     handleSubmit,
+    reset,
     control,
     formState: { errors, isSubmitting },
   } = useForm<RecipeFormFields>({
@@ -59,13 +86,15 @@ export default function RecipeForm({ recipe }: RecipeFormProps) {
       title: recipe?.title,
       description: recipe?.description,
       // @ts-ignore
-      ingredients: recipe?.ingredients || [
-        { id: undefined, amount: undefined, unit: undefined },
-      ],
+      ingredients: recipe?.ingredients || [EmptyIngredient],
     },
     resolver: zodResolver(schema),
     mode: "onBlur",
   });
+
+  useEffect(() => {
+    reset();
+  }, [recipe, reset]);
 
   const {
     fields: ingredientFields,
@@ -81,36 +110,59 @@ export default function RecipeForm({ recipe }: RecipeFormProps) {
   });
 
   const onSubmit: SubmitHandler<RecipeFormFields> = async (data) => {
-    console.log("Test");
     console.log(
       JSON.stringify({
         ...data,
         authorId: user!.id,
-        // ingredients: [{ id: 1, unit: Unit.CUP, quantity: 10 }],
       })
     );
-    if (recipe) {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recipes`, {
-        method: "PATCH",
-        body: JSON.stringify(data),
-      });
-    } else {
-      let res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recipes`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...data,
-          authorId: user!.id,
-          ingredients: [{ id: 1, unit: Unit.CUP, quantity: 10 }],
-        }),
-      });
 
-      if (res.ok) {
-        router.push("/profile/my-recipes");
+    const sanitizedIngredients = data.ingredients.map((el) => {
+      const { ingredient, ...data } = el;
+      return { ...data, id: el.ingredient.id };
+    });
+    const recipeMutationData: RecipeMutation = {
+      ...data,
+      ingredients: sanitizedIngredients,
+      authorId: user!.id,
+    };
+
+    // let res;
+    if (recipe) {
+      // res = await fetch(
+      //   `${process.env.NEXT_PUBLIC_API_URL}/recipes/${recipe.id}`,
+      //   {
+      //     method: "PUT",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       ...data,
+      //       authorId: user!.id,
+      //     }),
+      //   }
+      // );
+      try {
+        await updateRecipeMutation.mutateAsync(recipeMutationData);
+      } catch (err) {
+        console.log(err);
+        return;
       }
+    } else {
+      // res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recipes`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     ...data,
+      //     authorId: user!.id,
+      //     ingredients: [{ id: 1, unit: Unit.CUP, quantity: 10 }],
+      //   }),
+      // });
     }
+
+    router.push("/profile/my-recipes");
   };
 
   return (
@@ -140,10 +192,10 @@ export default function RecipeForm({ recipe }: RecipeFormProps) {
                 <Controller
                   name={`ingredients.${index}`}
                   control={control}
-                  // defaultValue={ingredient || {}}
                   render={({ field: { value, onChange } }) => {
                     return (
                       <>
+                        {/* {JSON.stringify(value)} */}
                         <IngredientField
                           value={value}
                           onChange={onChange}
@@ -163,7 +215,7 @@ export default function RecipeForm({ recipe }: RecipeFormProps) {
           variant="secondary"
           onClick={() => {
             // @ts-ignore
-            append({ id: undefined, amount: undefined, unit: undefined });
+            append(EmptyIngredient);
           }}
         >
           Add Ingredient

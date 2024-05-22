@@ -1,4 +1,4 @@
-import Ingredient from "./ingredient.interface";
+import { IngredientOnRecipe } from "./ingredient.interface";
 import User from "./user.interface";
 
 export default interface Recipe {
@@ -10,5 +10,16 @@ export default interface Recipe {
   published: boolean;
   authorId: number;
   author?: User;
-  ingredients?: Array<Ingredient>;
+  ingredients?: IngredientOnRecipe[];
+}
+
+export interface RecipeMutation {
+  title: string;
+  description: string;
+  authorId: number;
+  ingredients: {
+    id: number;
+    quantity: number;
+    unit: "CUP" | "TABLESPOON" | "TEASPOON" | "OUNCE";
+  }[];
 }
