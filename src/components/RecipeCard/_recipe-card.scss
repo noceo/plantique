@@ -15,6 +15,7 @@
   }
 
   &__title {
+    display: block;
     @include heading2;
     margin-bottom: 10px;
   }

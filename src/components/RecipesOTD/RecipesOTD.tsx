@@ -1,20 +1,33 @@
 import RecipeCard from "../RecipeCard/RecipeCard";
 import { Allergen } from "@/shared/interfaces/allergen.interface";
+import { ResponseError } from "@/shared/services/httpClient.service";
+import RecipeOTD from "@/shared/interfaces/recipe-otd.interface";
 
-export default function RecipesOTD() {
+async function getRecipesOTD() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recipes-otd`);
+  if (!res.ok) {
+    throw new ResponseError("Bad response", res);
+  }
+  const recipesOTD = await res.json();
+  return recipesOTD as RecipeOTD[];
+}
+
+export default async function RecipesOTD() {
+  const recipesOTD = await getRecipesOTD();
+
   return (
     <div className="recipes-otd container">
       <div className="row">
-        {Array.from({ length: 3 }).map((_, i) => (
+        {recipesOTD.map((recipeOTD, i) => (
           <div key={i} className="col-xs-4">
             <RecipeCard
-              title="Creamy Cauliflower Curry"
-              description="So juicy!"
+              title={recipeOTD.recipe.title}
+              description={recipeOTD.recipe.description}
               imgSrc="https://placehold.co/400"
               allergens={[Allergen.GLUTEN_FREE, Allergen.NUT_FREE]}
               isLiked
               author={{
-                name: "Paul",
+                name: recipeOTD.recipe.author?.name || "",
                 imgSrc: "https://placehold.co/400",
               }}
               href="/recipes/creamy-cauliflower-curry"
