@@ -55,7 +55,7 @@ export default function RecipeForm({ recipe }: RecipeFormProps) {
   const createRecipeMutation = useRecipeMutation({
     mutationKey: `recipe.${recipe?.id}`,
     method: "POST",
-    endpoint: `/${recipe?.id}`,
+    endpoint: "",
     accessToken: user?.accessToken,
   });
 
@@ -100,39 +100,15 @@ export default function RecipeForm({ recipe }: RecipeFormProps) {
       authorId: user!.id,
     };
 
-    // let res;
-    if (recipe) {
-      // res = await fetch(
-      //   `${process.env.NEXT_PUBLIC_API_URL}/recipes/${recipe.id}`,
-      //   {
-      //     method: "PUT",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify({
-      //       ...data,
-      //       authorId: user!.id,
-      //     }),
-      //   }
-      // );
-      try {
+    try {
+      if (recipe) {
         await updateRecipeMutation.mutateAsync(recipeMutationData);
-      } catch (err) {
-        console.log(err);
-        return;
+      } else {
+        await createRecipeMutation.mutateAsync(recipeMutationData);
       }
-    } else {
-      // res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recipes`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     ...data,
-      //     authorId: user!.id,
-      //     ingredients: [{ id: 1, unit: Unit.CUP, quantity: 10 }],
-      //   }),
-      // });
+    } catch (err) {
+      console.log(err);
+      return;
     }
 
     router.push("/profile/my-recipes");
