@@ -51,73 +51,115 @@ const recipes = [
 
 const ingredients = [
   {
-    name: "Avocado",
-    amount: "1/2",
+    ingredient: {
+      id: 1,
+      name: "Avocado",
+    },
+    quantity: 0.5,
     unit: null,
   },
   {
-    name: "Broccoli",
-    amount: "1/5",
+    ingredient: {
+      id: 2,
+      name: "Broccoli",
+    },
+    quantity: 0.2,
     unit: null,
   },
   {
-    name: "Onion",
-    amount: "1/2",
+    ingredient: {
+      id: 3,
+      name: "Onion",
+    },
+    quantity: 0.5,
     unit: null,
   },
   {
-    name: "Ginger",
-    amount: "1",
+    ingredient: {
+      id: 4,
+      name: "Ginger",
+    },
+    quantity: 1,
     unit: null,
   },
   {
-    name: "Lemon",
-    amount: "1/4",
+    ingredient: {
+      id: 5,
+      name: "Lemon",
+    },
+    quantity: 0.25,
     unit: null,
   },
   {
-    name: "Sesame Seeds",
-    amount: "1/2",
+    ingredient: {
+      id: 6,
+      name: "Sesame Seeds",
+    },
+    quantity: 0.5,
     unit: Unit.CUP,
   },
   {
-    name: "Peas, frozen",
-    amount: "16",
+    ingredient: {
+      id: 7,
+      name: "Peas, frozen",
+    },
+    quantity: 16,
     unit: Unit.OUNCE,
   },
   {
-    name: "Coconut Milk",
-    amount: "1",
+    ingredient: {
+      id: 8,
+      name: "Coconut Milk",
+    },
+    quantity: 1,
     unit: Unit.CUP,
   },
   {
-    name: "Coconut Oil",
-    amount: "2",
+    ingredient: {
+      id: 9,
+      name: "Coconut Oil",
+    },
+    quantity: 2,
     unit: Unit.TBSP,
   },
   {
-    name: "Apple Vinegar",
-    amount: "1",
+    ingredient: {
+      id: 10,
+      name: "Apple Vinegar",
+    },
+    quantity: 1,
     unit: Unit.TSP,
   },
   {
-    name: "Veggie Broth",
-    amount: "2",
+    ingredient: {
+      id: 11,
+      name: "Veggie Broth",
+    },
+    quantity: 2,
     unit: Unit.CUP,
   },
   {
-    name: "Turmeric",
-    amount: "1",
+    ingredient: {
+      id: 12,
+      name: "Turmeric",
+    },
+    quantity: 1,
     unit: Unit.TBSP,
   },
   {
-    name: "Salt",
-    amount: "",
+    ingredient: {
+      id: 13,
+      name: "Salt",
+    },
+    quantity: 1,
     unit: null,
   },
   {
-    name: "Pepper",
-    amount: "",
+    ingredient: {
+      id: 14,
+      name: "Pepper",
+    },
+    quantity: 1,
     unit: null,
   },
 ];

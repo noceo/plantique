@@ -1,12 +1,11 @@
 "use client";
 
-import Ingredient from "@/shared/interfaces/ingredient.interface";
+import { IngredientOnRecipe } from "@/shared/interfaces/ingredient.interface";
 import ControlPanel from "../ContolPanel/ControlPanel";
 import { useCallback } from "react";
-import Button from "../Button/Button";
 
 interface IngredientListProps {
-  ingredients: Array<Ingredient>;
+  ingredients: IngredientOnRecipe[];
 }
 
 export default function IngredientList({ ingredients }: IngredientListProps) {
@@ -29,15 +28,15 @@ export default function IngredientList({ ingredients }: IngredientListProps) {
         <tbody>
           {ingredients.map((ingredient) => (
             <tr
-              key={ingredient.name}
+              key={ingredient.ingredient.name}
               className="recipe-page__ingredient-list-item"
             >
               <td>
                 <span>
-                  {ingredient.amount} {ingredient.unit}
+                  {ingredient.quantity} {ingredient.unit}
                 </span>
               </td>
-              <td>{ingredient.name}</td>
+              <td>{ingredient.ingredient.name}</td>
             </tr>
           ))}
         </tbody>
