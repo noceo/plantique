@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import SelectField from "../SelectField/SelectField";
-import { Unit } from "@/shared/interfaces/unit.interface";
 
 export default function IngredientField({
   value,
@@ -27,8 +26,6 @@ export default function IngredientField({
     return ingredients.map((ingredient: any) => ingredient.name);
   }, [ingredients]);
 
-  console.log(value);
-
   return (
     <div className="ingredient-field">
       <div className="form-field">
@@ -39,7 +36,7 @@ export default function IngredientField({
           placeholder="Select Ingredient..."
           onValueChange={onIngredientChange}
         />
-        <span className="form-error">{errors?.ingredient?.message}</span>
+        <span className="form-error">{errors?.ingredient?.name?.message}</span>
       </div>
       <div className="form-field">
         <input

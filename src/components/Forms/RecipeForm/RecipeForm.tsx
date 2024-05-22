@@ -19,6 +19,7 @@ import PlusIcon from "@/../public/icons/plus.svg";
 import useIngredients from "@/shared/hooks/use-ingredients.hook";
 import { useCallback, useEffect } from "react";
 import useRecipeMutation from "@/shared/hooks/use-recipes-mutation.hook";
+import IngredientSection from "./IngredientSection";
 
 interface RecipeFormProps {
   recipe?: Recipe;
@@ -41,7 +42,7 @@ const schema = z.object({
 
 export type RecipeFormFields = z.infer<typeof schema>;
 
-const EmptyIngredient = {
+export const EmptyIngredient = {
   ingredient: { id: undefined, name: undefined },
   quantity: undefined,
   unit: undefined,
@@ -65,49 +66,21 @@ export default function RecipeForm({ recipe }: RecipeFormProps) {
     accessToken: user?.accessToken,
   });
 
-  const {
-    data: ingredients,
-    isLoading,
-    isError,
-    error,
-  } = useIngredients({
-    endpoint: "",
-    accessToken: user?.accessToken,
-  });
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    control,
-    formState: { errors, isSubmitting },
-  } = useForm<RecipeFormFields>({
-    defaultValues: {
-      title: recipe?.title,
-      description: recipe?.description,
-      // @ts-ignore
-      ingredients: recipe?.ingredients || [EmptyIngredient],
-    },
-    resolver: zodResolver(schema),
-    mode: "onBlur",
-  });
+  const { register, handleSubmit, reset, control, formState } =
+    useForm<RecipeFormFields>({
+      defaultValues: {
+        title: recipe?.title,
+        description: recipe?.description,
+        // @ts-ignore
+        ingredients: recipe?.ingredients || [EmptyIngredient],
+      },
+      resolver: zodResolver(schema),
+      mode: "onBlur",
+    });
 
   useEffect(() => {
     reset();
   }, [recipe, reset]);
-
-  const {
-    fields: ingredientFields,
-    append,
-    prepend,
-    remove,
-    swap,
-    move,
-    insert,
-  } = useFieldArray({
-    control,
-    name: "ingredients",
-  });
 
   const onSubmit: SubmitHandler<RecipeFormFields> = async (data) => {
     console.log(
@@ -172,63 +145,26 @@ export default function RecipeForm({ recipe }: RecipeFormProps) {
         type="text"
         placeholder="Title"
         register={register}
-        error={errors.title}
+        error={formState.errors.title}
       />
       <FormField
         name="description"
         type="text"
         placeholder="Description"
         register={register}
-        error={errors.description}
+        error={formState.errors.description}
       />
       <div className="recipe-form__ingredient-section">
-        <h2>Ingredients</h2>
-        <ul>
-          {isLoading ? (
-            <p>Loading</p>
-          ) : (
-            ingredientFields.map((ingredient, index) => (
-              <li key={ingredient.id}>
-                <Controller
-                  name={`ingredients.${index}`}
-                  control={control}
-                  render={({ field: { value, onChange } }) => {
-                    return (
-                      <>
-                        {/* {JSON.stringify(value)} */}
-                        <IngredientField
-                          value={value}
-                          onChange={onChange}
-                          ingredients={ingredients}
-                          errors={errors.ingredients?.[index]}
-                        />
-                      </>
-                    );
-                  }}
-                ></Controller>
-              </li>
-            ))
-          )}
-        </ul>
-        <Button
-          type="button"
-          variant="secondary"
-          onClick={() => {
-            // @ts-ignore
-            append(EmptyIngredient);
-          }}
-        >
-          Add Ingredient
-        </Button>
+        <IngredientSection control={control} formState={formState} />
       </div>
       <div className="recipe-form__submit-btn">
         <Button
           variant="primary"
-          disabled={isSubmitting}
+          disabled={formState.isSubmitting}
           type="submit"
           className="submit-button"
         >
-          {isSubmitting ? "Loading..." : "Submit"}
+          {formState.isSubmitting ? "Loading..." : "Submit"}
         </Button>
       </div>
     </form>
