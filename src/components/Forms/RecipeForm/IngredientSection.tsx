@@ -5,6 +5,7 @@ import IngredientField from "../IngredientField/IngredientField";
 import { RecipeFormFields } from "./RecipeForm";
 import Button from "@/components/Button/Button";
 import { EmptyIngredient } from "./RecipeForm";
+import PlusCircledIcon from "@/../public/icons/plus-circled.svg";
 
 interface IngredientSectionProps {
   control: Control<RecipeFormFields>;
@@ -60,6 +61,7 @@ export default function IngredientSection({
                         onChange={onChange}
                         ingredients={ingredients}
                         errors={formState.errors.ingredients?.[index]}
+                        onRemove={() => remove(index)}
                       />
                     </>
                   );
@@ -71,7 +73,9 @@ export default function IngredientSection({
       )}
       <Button
         type="button"
-        variant="secondary"
+        variant="icon-link"
+        color="success"
+        icon={<PlusCircledIcon />}
         onClick={() => {
           // @ts-ignore
           append(EmptyIngredient);

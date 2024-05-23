@@ -1,11 +1,14 @@
 import { useMemo } from "react";
 import SelectField from "../SelectField/SelectField";
+import TrashIcon from "@/../public/icons/trash.svg";
+import Button from "@/components/Button/Button";
 
 export default function IngredientField({
   value,
   onChange,
   ingredients,
   errors,
+  onRemove,
 }: any) {
   const onIngredientChange = (changedValue: string) => {
     const option = ingredients.find(
@@ -55,6 +58,11 @@ export default function IngredientField({
           onValueChange={onUnitChange}
         />
         <span className="form-error">{errors?.unit?.message}</span>
+      </div>
+      <div className="ingredient-field__remove-btn">
+        <Button variant="icon-square" color="danger" onClick={onRemove}>
+          <TrashIcon />
+        </Button>
       </div>
     </div>
   );
