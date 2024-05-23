@@ -5,6 +5,7 @@ export default interface Recipe {
   id: number;
   createdAt: Date;
   updatedAt: Date;
+  slug: string;
   title: string;
   description: string;
   published: boolean;

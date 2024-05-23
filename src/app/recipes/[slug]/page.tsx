@@ -9,6 +9,8 @@ import StepsSection from "@/components/StepsSection/StepsSection";
 import { Allergen } from "@/shared/interfaces/allergen.interface";
 import { Unit } from "@/shared/interfaces/unit.interface";
 import CurrentImageProvider from "@/shared/context/CurrentImageContext.context";
+import { ResponseError } from "@/shared/services/httpClient.service";
+import Recipe from "@/shared/interfaces/recipe.interface";
 
 const recipes = [
   {
@@ -193,8 +195,19 @@ export async function generateStaticParams(): Promise<PageParams[]> {
   }));
 }
 
-export default function Recipe({ params }: PageProps) {
+async function getRecipe(slug: string) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recipes/${slug}`);
+  if (!res.ok) {
+    throw new ResponseError("Bad response", res);
+  }
+  const recipe = await res.json();
+  return recipe as Recipe;
+}
+
+export default async function RecipePage({ params }: PageProps) {
   const { slug } = params;
+  const recipe = await getRecipe(slug);
+
   return (
     <CurrentImageProvider>
       <div className="recipe-page">
@@ -212,8 +225,8 @@ export default function Recipe({ params }: PageProps) {
         </div>
         <div className="recipe-page__content">
           <section className="recipe-page__overview">
-            <h1 className="recipe-page__title">Creamy Cauliflower Curry</h1>
-            <p className="recipe-page__description">So juicy!</p>
+            <h1 className="recipe-page__title">{recipe.title}</h1>
+            <p className="recipe-page__description">{recipe.description}</p>
             <div className="recipe-page__ingredient-list-control-combo">
               <IngredientList ingredients={ingredients} />
             </div>

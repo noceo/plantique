@@ -30,7 +30,7 @@ export default async function RecipesOTD() {
                 name: recipeOTD.recipe.author?.name || "",
                 imgSrc: "https://placehold.co/400",
               }}
-              href="/recipes/creamy-cauliflower-curry"
+              href={`/recipes/${recipeOTD.recipe.id}`}
             />
           </div>
         ))}

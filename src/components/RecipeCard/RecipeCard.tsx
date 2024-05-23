@@ -26,7 +26,7 @@ export default function RecipeCard({
 }: RecipeCardProps) {
   return (
     <div className="recipe-card">
-      <Link href={href}>
+      <Link href={href} tabIndex={0}>
         <div className="recipe-card__img">
           <CustomImage src={imgSrc} alt={title} />
         </div>
