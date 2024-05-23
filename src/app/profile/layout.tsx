@@ -20,7 +20,7 @@ export default function ProfileLayout({
           <div className="profile-page__sidebar col-xs-4">
             <Sidebar />
           </div>
-          <div className="col-xs-6">
+          <div className="col-xs-8">
             <div className="profile-page__content">{children}</div>
           </div>
         </div>
