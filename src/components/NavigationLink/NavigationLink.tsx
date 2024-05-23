@@ -15,6 +15,7 @@ export default function NavigationLink({
     <Link
       className={"nav-link " + (variant && "nav-link--" + variant)}
       href={href}
+      tabIndex={0}
     >
       {children}
     </Link>
