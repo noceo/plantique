@@ -17,7 +17,9 @@ export default function SidebarLink({
 
   return (
     <div className={"sidebar-link" + (isActive ? " sidebar-link--active" : "")}>
-      <Link href={href}>{children}</Link>
+      <Link href={href} tabIndex={0}>
+        {children}
+      </Link>
     </div>
   );
 }
