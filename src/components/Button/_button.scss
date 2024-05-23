@@ -13,6 +13,21 @@
   touch-action: manipulation;
   will-change: transform;
 
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    pointer-events: none;
+    background-color: lightgray;
+  }
+
+  &:active {
+    box-shadow: none;
+    transform: translateY(0);
+  }
+
   &--primary {
     background-color: black;
     color: white;
@@ -27,18 +42,39 @@
     padding: 0;
   }
 
-  &:hover {
-    box-shadow: rgba(0, 0, 0, 0.25) 0 3px 10px;
-    transform: translateY(-1px);
+  &--icon-square {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    padding: 32%;
   }
 
-  &:disabled {
-    pointer-events: none;
-    background-color: lightgray;
+  &--icon-link {
+    display: inline-flex;
+    align-items: center;
+    font-size: font-size(14px);
+    min-height: 0;
+    padding: 5px 0px;
+    border-radius: 10px;
+    background: none;
+
+    .btn__icon {
+      width: 15px;
+      height: 15px;
+      margin-right: 5px;
+    }
+
+    &:hover {
+      box-shadow: none;
+    }
+
+    &.btn--success:hover {
+      color: #2bd431;
+    }
   }
 
-  &:active {
-    box-shadow: none;
-    transform: translateY(0);
+  &--danger {
+    // background-color: white;
+    color: #ff4747;
   }
 }
