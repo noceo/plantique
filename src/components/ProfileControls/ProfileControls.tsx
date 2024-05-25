@@ -26,7 +26,9 @@ export default function ProfileControls() {
           Logout
         </Button>
       ) : (
-        <Link href="/login">Login</Link>
+        <Button variant="primary" href="/login">
+          Login
+        </Button>
       )}
       <div className="profile-controls__avatar">
         <Avatar />

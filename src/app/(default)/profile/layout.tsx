@@ -12,11 +12,6 @@ export default function ProfileLayout({
     <AuthRoute>
       <div className="profile-page container">
         <div className="row">
-          <div className="profile-page__navbar col-xs-12">
-            <Navbar />
-          </div>
-        </div>
-        <div className="row">
           <div className="profile-page__sidebar col-xs-4">
             <Sidebar />
           </div>

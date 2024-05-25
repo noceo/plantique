@@ -37,10 +37,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${playfair.variable} ${poppins.variable}`}>
         <UserProvider>
-          <QueryProvider>
-            <Navbar />
-            {children}
-          </QueryProvider>
+          <QueryProvider>{children}</QueryProvider>
         </UserProvider>
       </body>
     </html>

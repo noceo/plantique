@@ -2,9 +2,11 @@ import ProfileControls from "../ProfileControls/ProfileControls";
 
 export default function Navbar() {
   return (
-    <div className="navbar">
-      <div className="navbar__profile-controls">
-        <ProfileControls />
+    <div className="navbar container">
+      <div className="row">
+        <div className="navbar__profile-controls col-xs-12">
+          <ProfileControls />
+        </div>
       </div>
     </div>
   );
