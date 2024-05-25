@@ -1,4 +1,11 @@
 .recipe-list-item {
-  display: block;
-  padding: 20px 0;
+  display: flex;
+  padding: 10px 0;
+
+  a {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    margin-right: 10px;
+  }
 }

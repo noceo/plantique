@@ -5,7 +5,7 @@ import { ResponseError } from "../services/httpClient.service";
 interface UseRecipeMutationProps {
   mutationKey: string;
   endpoint: string;
-  method: "POST" | "PUT";
+  method: "POST" | "PUT" | "DELETE";
   accessToken?: string;
 }
 
@@ -19,7 +19,7 @@ export default function useRecipeMutation({
   return useMutation({
     // @ts-ignore
     mutationKey: mutationKey,
-    mutationFn: async (data: RecipeMutation) => {
+    mutationFn: async (data?: RecipeMutation) => {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/recipes${endpoint}`,
         {
@@ -40,9 +40,9 @@ export default function useRecipeMutation({
       return recipe as Recipe;
     },
     onSuccess: () => {
-      console.log("QUERY KEY: ", mutationKey);
+      console.log("SUCCESS: ", mutationKey);
       queryClient.invalidateQueries({ queryKey: [mutationKey] });
-      // queryClient.resetQueries();
+      queryClient.invalidateQueries({ queryKey: ["recipes"] });
     },
   });
 }
